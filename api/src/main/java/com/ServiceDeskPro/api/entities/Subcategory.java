@@ -7,24 +7,27 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.Instant;
-import java.util.UUID;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "tb_role")
+@Table(name = "tb_subcategory")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class Role {
+public class Subcategory {
     @Id
-    @GeneratedValue
-    private UUID id;
-    private String authority;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String name;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant createdAt;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
     private Instant updateAt;
-
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
     @PrePersist
     public void prePersist(){
         createdAt = Instant.now();
@@ -33,4 +36,5 @@ public class Role {
     public void preUpdate(){
         updateAt = Instant.now();
     }
+
 }
