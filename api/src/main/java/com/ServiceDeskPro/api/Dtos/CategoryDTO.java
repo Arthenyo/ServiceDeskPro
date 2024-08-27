@@ -2,18 +2,20 @@ package com.ServiceDeskPro.api.Dtos;
 
 import com.ServiceDeskPro.api.entities.Category;
 import com.ServiceDeskPro.api.entities.Subcategory;
+import jakarta.validation.constraints.NotBlank;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 public class CategoryDTO {
 
-    private UUID id;
+    private Long id;
+    @NotBlank(message = "Campo Obrigatorio")
+
     private String name;
     private List<String> subcategories = new ArrayList<>();
 
-    public CategoryDTO(UUID id, String name) {
+    public CategoryDTO(Long id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -25,7 +27,7 @@ public class CategoryDTO {
         }
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 

@@ -2,6 +2,7 @@ package com.ServiceDeskPro.api.controlleres;
 
 import com.ServiceDeskPro.api.Dtos.CategoryDTO;
 import com.ServiceDeskPro.api.servicies.CategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.findById(id));
     }
     @PostMapping
-    public ResponseEntity<CategoryDTO>insert(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<CategoryDTO>insert(@Valid @RequestBody CategoryDTO categoryDTO){
         categoryDTO = categoryService.insert(categoryDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(categoryDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(categoryDTO);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<CategoryDTO>update(@PathVariable UUID id, @RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<CategoryDTO>update(@PathVariable UUID id,@Valid @RequestBody CategoryDTO categoryDTO){
         return ResponseEntity.ok().body(categoryService.update(id,categoryDTO));
     }
     @DeleteMapping(value = "/{id}")

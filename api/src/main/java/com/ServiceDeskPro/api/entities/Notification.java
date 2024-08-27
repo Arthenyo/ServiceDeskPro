@@ -17,8 +17,8 @@ import java.util.UUID;
 public class Notification {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     @ManyToOne
     @JoinColumn(name = "called_id")
     private Called called;

@@ -2,6 +2,7 @@ package com.ServiceDeskPro.api.controlleres;
 
 import com.ServiceDeskPro.api.Dtos.SubCategoryDTO;
 import com.ServiceDeskPro.api.servicies.SubCategoryService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class SubCategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(subCategoryService.findById(id));
     }
     @PostMapping
-    public ResponseEntity<SubCategoryDTO>insert(@RequestBody SubCategoryDTO subCategoryDTO){
+    public ResponseEntity<SubCategoryDTO>insert(@Valid @RequestBody SubCategoryDTO subCategoryDTO){
         subCategoryDTO = subCategoryService.insert(subCategoryDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{id}")
                 .buildAndExpand(subCategoryDTO.getId()).toUri();
         return ResponseEntity.created(uri).body(subCategoryDTO);
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<SubCategoryDTO>update(@PathVariable UUID id, @RequestBody SubCategoryDTO subCategoryDTO){
+    public ResponseEntity<SubCategoryDTO>update(@PathVariable UUID id,@Valid @RequestBody SubCategoryDTO subCategoryDTO){
         return ResponseEntity.ok().body(subCategoryService.update(id,subCategoryDTO));
     }
     @DeleteMapping(value = "/{id}")

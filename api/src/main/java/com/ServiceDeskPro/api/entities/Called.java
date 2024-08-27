@@ -22,8 +22,8 @@ import java.util.UUID;
 public class Called {
 
     @Id
-    @GeneratedValue
-    private UUID id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String title;
     private String description;
     @Column(columnDefinition = "TIMESTAMP WITHOUT TIME ZONE")
